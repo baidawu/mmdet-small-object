@@ -15,6 +15,7 @@ from .utils import (NumClassCheckHook, get_loading_pipeline,
 from .voc import VOCDataset
 from .wider_face import WIDERFaceDataset
 from .xml_style import XMLDataset
+# from my_dataset import MyDataSet
 
 __all__ = [
     'CustomDataset', 'XMLDataset', 'CocoDataset', 'DeepFashionDataset',

@@ -107,9 +107,10 @@ class XMLDataset(CustomDataset):
         labels_ignore = []
         for obj in root.findall('object'):
             name = obj.find('name').text
-            if name not in self.CLASSES:
-                continue
-            label = self.cat2label[name]
+            label = int(name)  # TODO 1. id and class name
+            # if name not in self.CLASSES:
+            #     continue
+            # label = self.cat2label[name]
             difficult = obj.find('difficult')
             difficult = 0 if difficult is None else int(difficult.text)
             bnd_box = obj.find('bndbox')
@@ -170,9 +171,10 @@ class XMLDataset(CustomDataset):
         root = tree.getroot()
         for obj in root.findall('object'):
             name = obj.find('name').text
-            if name not in self.CLASSES:
-                continue
-            label = self.cat2label[name]
+            label = int(name)  # TODO  2. id and class name
+            # if name not in self.CLASSES:
+            #     continue
+            # label = self.cat2label[name]
             cat_ids.append(label)
 
         return cat_ids

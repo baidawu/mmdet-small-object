@@ -23,8 +23,9 @@ def parse_xml(args):
     bboxes_ignore = []
     labels_ignore = []
     for obj in root.findall('object'):
-        name = obj.find('name').text
-        label = label_ids[name]
+        # name = obj.find('name').text
+        # label = label_ids[name]
+        label = int(obj.find('name').text)
         difficult = int(obj.find('difficult').text)
         bnd_box = obj.find('bndbox')
         bbox = [
@@ -65,28 +66,54 @@ def parse_xml(args):
     return annotation
 
 
-def cvt_annotations(devkit_path, years, split, out_file):
-    if not isinstance(years, list):
-        years = [years]
+# def cvt_annotations(devkit_path, years, split, out_file):
+#     if not isinstance(years, list):
+#         years = [years]
+#     annotations = []
+#     for year in years:
+#         filelist = osp.join(devkit_path,
+#                             f'VOC{year}/ImageSets/Main/{split}.txt')
+#         if not osp.isfile(filelist):
+#             print(f'filelist does not exist: {filelist}, '
+#                   f'skip voc{year} {split}')
+#             return
+#         img_names = mmcv.list_from_file(filelist)
+#         xml_paths = [
+#             osp.join(devkit_path, f'VOC{year}/Annotations/{img_name}.xml')
+#             for img_name in img_names
+#         ]
+#         img_paths = [
+#             f'VOC{year}/JPEGImages/{img_name}.jpg' for img_name in img_names
+#         ]
+#         part_annotations = mmcv.track_progress(parse_xml,
+#                                                list(zip(xml_paths, img_paths)))
+#         annotations.extend(part_annotations)
+#     if out_file.endswith('json'):
+#         annotations = cvt_to_coco_json(annotations)
+#     mmcv.dump(annotations, out_file)
+#     return annotations
+
+def cvt_annotations(devkit_path, split, out_file):
+
     annotations = []
-    for year in years:
-        filelist = osp.join(devkit_path,
-                            f'VOC{year}/ImageSets/Main/{split}.txt')
-        if not osp.isfile(filelist):
-            print(f'filelist does not exist: {filelist}, '
-                  f'skip voc{year} {split}')
-            return
-        img_names = mmcv.list_from_file(filelist)
-        xml_paths = [
-            osp.join(devkit_path, f'VOC{year}/Annotations/{img_name}.xml')
-            for img_name in img_names
-        ]
-        img_paths = [
-            f'VOC{year}/JPEGImages/{img_name}.jpg' for img_name in img_names
-        ]
-        part_annotations = mmcv.track_progress(parse_xml,
-                                               list(zip(xml_paths, img_paths)))
-        annotations.extend(part_annotations)
+    # for year in years:
+    filelist = osp.join(devkit_path,
+                        f'ImageSets/{split}.txt')
+    if not osp.isfile(filelist):
+        print(f'filelist does not exist: {filelist}, '
+              f'skip voc {split}')
+        return
+    img_names = mmcv.list_from_file(filelist)
+    xml_paths = [
+        osp.join(devkit_path, f'Annotations/{img_name}.xml')
+        for img_name in img_names
+    ]
+    img_paths = [
+        f'JPEGImages/{img_name}.jpg' for img_name in img_names
+    ]
+    part_annotations = mmcv.track_progress(parse_xml,
+                                           list(zip(xml_paths, img_paths)))
+    annotations.extend(part_annotations)
     if out_file.endswith('json'):
         annotations = cvt_to_coco_json(annotations)
     mmcv.dump(annotations, out_file)
@@ -183,11 +210,15 @@ def cvt_to_coco_json(annotations):
 def parse_args():
     parser = argparse.ArgumentParser(
         description='Convert PASCAL VOC annotations to mmdetection format')
-    parser.add_argument('devkit_path', help='pascal voc devkit path')
-    parser.add_argument('-o', '--out-dir', help='output path')
+    parser.add_argument('--devkit_path',
+                        default='./data/Pest24',
+                        help='pascal voc devkit path')
+    parser.add_argument('--out-dir',
+                        default='./data/coco',
+                        help='output path')
     parser.add_argument(
         '--out-format',
-        default='pkl',
+        default='coco',
         choices=('pkl', 'coco'),
         help='output format, "coco" indicates coco annotation format')
     args = parser.parse_args()
@@ -200,36 +231,36 @@ def main():
     out_dir = args.out_dir if args.out_dir else devkit_path
     mmcv.mkdir_or_exist(out_dir)
 
-    years = []
-    if osp.isdir(osp.join(devkit_path, 'VOC2007')):
-        years.append('2007')
-    if osp.isdir(osp.join(devkit_path, 'VOC2012')):
-        years.append('2012')
-    if '2007' in years and '2012' in years:
-        years.append(['2007', '2012'])
-    if not years:
-        raise IOError(f'The devkit path {devkit_path} contains neither '
-                      '"VOC2007" nor "VOC2012" subfolder')
+    # years = []
+    # if osp.isdir(osp.join(devkit_path, 'VOC2007')):
+    #     years.append('2007')
+    # if osp.isdir(osp.join(devkit_path, 'VOC2012')):
+    #     years.append('2012')
+    # if '2007' in years and '2012' in years:
+    #     years.append(['2007', '2012'])
+    # if not years:
+    #     raise IOError(f'The devkit path {devkit_path} contains neither '
+    #                   '"VOC2007" nor "VOC2012" subfolder')
     out_fmt = f'.{args.out_format}'
     if args.out_format == 'coco':
         out_fmt = '.json'
-    for year in years:
-        if year == '2007':
-            prefix = 'voc07'
-        elif year == '2012':
-            prefix = 'voc12'
-        elif year == ['2007', '2012']:
-            prefix = 'voc0712'
-        for split in ['train', 'val', 'trainval']:
-            dataset_name = prefix + '_' + split
-            print(f'processing {dataset_name} ...')
-            cvt_annotations(devkit_path, year, split,
-                            osp.join(out_dir, dataset_name + out_fmt))
-        if not isinstance(year, list):
-            dataset_name = prefix + '_test'
-            print(f'processing {dataset_name} ...')
-            cvt_annotations(devkit_path, year, 'test',
-                            osp.join(out_dir, dataset_name + out_fmt))
+    # for year in years:
+    # if year == '2007':
+    #     prefix = 'voc07'
+    # elif year == '2012':
+    #     prefix = 'voc12'
+    # elif year == ['2007', '2012']:
+    #     prefix = 'voc0712'
+    for split in ['train', 'val', 'test']:
+        dataset_name = 'voc' + '_' + split
+        print(f'processing {dataset_name} ...')
+        cvt_annotations(devkit_path, split,
+                        osp.join(out_dir, dataset_name + out_fmt))
+    # if not isinstance(year, list):
+    #     dataset_name = 'voc' + '_test'
+    #     print(f'processing {dataset_name} ...')
+    #     cvt_annotations(devkit_path, 'test',
+    #                     osp.join(out_dir, dataset_name + out_fmt))
     print('Done!')
 
 

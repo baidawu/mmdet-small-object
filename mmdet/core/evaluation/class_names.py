@@ -7,11 +7,22 @@ def wider_face_classes():
 
 
 def voc_classes():
-    return [
-        'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car', 'cat',
-        'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike', 'person',
-        'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor'
-    ]
+    # return [
+    #     'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car', 'cat',
+    #     'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike', 'person',
+    #     'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor'
+    # ]
+    # return [
+    #     'Rice planthopper', 'Rice Leaf Roller', 'Chilo suppressalis', 'Melahotus', 'Armyworm',
+    #            'Bollworm', 'Meadow borer', 'Athetis lepigone', 'Agriotes fuscicollis Miwa', 'Spodoptera litura',
+    #            'Spodoptera exigua', 'Stem borer', 'Little Gecko', 'Plutella xylostella', 'Spodoptera cabbage',
+    #            'Scotogramma trifolii Rottemberg', 'Nematode trench', 'Land tiger', 'Eight-character tiger', 'Holotrichia oblita',
+    #            'Holotrichia parallela', 'Anomala corpulenta', 'Gryllotalpa orientalis', 'Yellow tiger']
+    return ['1', '2', '3', '4', '5',
+            '6', '7', '8', '9', '10',
+            '11', '12', '13', '14', '15',
+            '16', '17', '18', '19', '20',
+            '21', '22', '23', '24']
 
 
 def imagenet_det_classes():
@@ -66,21 +77,32 @@ def imagenet_vid_classes():
 
 
 def coco_classes():
-    return [
-        'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train',
-        'truck', 'boat', 'traffic_light', 'fire_hydrant', 'stop_sign',
-        'parking_meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep',
-        'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella',
-        'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard',
-        'sports_ball', 'kite', 'baseball_bat', 'baseball_glove', 'skateboard',
-        'surfboard', 'tennis_racket', 'bottle', 'wine_glass', 'cup', 'fork',
-        'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange',
-        'broccoli', 'carrot', 'hot_dog', 'pizza', 'donut', 'cake', 'chair',
-        'couch', 'potted_plant', 'bed', 'dining_table', 'toilet', 'tv',
-        'laptop', 'mouse', 'remote', 'keyboard', 'cell_phone', 'microwave',
-        'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
-        'scissors', 'teddy_bear', 'hair_drier', 'toothbrush'
-    ]
+    # return [
+    #     'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train',
+    #     'truck', 'boat', 'traffic_light', 'fire_hydrant', 'stop_sign',
+    #     'parking_meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep',
+    #     'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella',
+    #     'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard',
+    #     'sports_ball', 'kite', 'baseball_bat', 'baseball_glove', 'skateboard',
+    #     'surfboard', 'tennis_racket', 'bottle', 'wine_glass', 'cup', 'fork',
+    #     'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange',
+    #     'broccoli', 'carrot', 'hot_dog', 'pizza', 'donut', 'cake', 'chair',
+    #     'couch', 'potted_plant', 'bed', 'dining_table', 'toilet', 'tv',
+    #     'laptop', 'mouse', 'remote', 'keyboard', 'cell_phone', 'microwave',
+    #     'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
+    #     'scissors', 'teddy_bear', 'hair_drier', 'toothbrush'
+    # ]
+    # return ['Rice planthopper', 'Rice Leaf Roller', 'Chilo suppressalis', 'Melahotus', 'Armyworm',
+    #         'Bollworm', 'Meadow borer', 'Athetis lepigone', 'Agriotes fuscicollis Miwa', 'Spodoptera litura',
+    #         'Spodoptera exigua', 'Stem borer', 'Little Gecko', 'Plutella xylostella', 'Spodoptera cabbage',
+    #         'Scotogramma trifolii Rottemberg', 'Nematode trench', 'Land tiger', 'Eight-character tiger',
+    #         'Holotrichia oblita',
+    #         'Holotrichia parallela', 'Anomala corpulenta', 'Gryllotalpa orientalis', 'Yellow tiger']
+    return  ['1', '2', '3', '4', '5',
+               '6', '7', '8', '9', '10',
+               '11', '12', '13', '14', '15',
+               '16', '17', '18', '19', '20',
+               '21', '22', '23', '24']
 
 
 def cityscapes_classes():

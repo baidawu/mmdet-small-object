@@ -11,10 +11,22 @@ from .xml_style import XMLDataset
 @DATASETS.register_module()
 class VOCDataset(XMLDataset):
 
-    CLASSES = ('aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car',
-               'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse',
-               'motorbike', 'person', 'pottedplant', 'sheep', 'sofa', 'train',
-               'tvmonitor')
+    # CLASSES = ('aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car',
+    #            'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse',
+    #            'motorbike', 'person', 'pottedplant', 'sheep', 'sofa', 'train',
+    #            'tvmonitor')
+    # CLASSES = ('Rice planthopper', 'Rice Leaf Roller', 'Chilo suppressalis', 'Melahotus', 'Armyworm',
+    #            'Bollworm', 'Meadow borer', 'Athetis lepigone', 'Agriotes fuscicollis Miwa', 'Spodoptera litura',
+    #            'Spodoptera exigua', 'Stem borer', 'Little Gecko', 'Plutella xylostella', 'Spodoptera cabbage',
+    #            'Scotogramma trifolii Rottemberg', 'Nematode trench', 'Land tiger', 'Eight-character tiger', 'Holotrichia oblita',
+    #            'Holotrichia parallela', 'Anomala corpulenta', 'Gryllotalpa orientalis', 'Yellow tiger')
+
+    CLASSES = ('1', '2', '3', '4', '5',
+               '6', '7', '8', '9', '10',
+               '11', '12', '13', '14', '15',
+               '16', '17', '18', '19', '20',
+               '21', '22', '23', '24')
+
 
     PALETTE = [(106, 0, 228), (119, 11, 32), (165, 42, 42), (0, 0, 192),
                (197, 226, 255), (0, 60, 100), (0, 0, 142), (255, 77, 255),
