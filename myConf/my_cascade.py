@@ -347,9 +347,6 @@ evaluation = dict(interval=1, metric='mAP')
 # classes = dict()
 
 
-
-
-
 optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=None)
 lr_config = dict(
@@ -374,6 +371,8 @@ workflow = [('train', 1)]
 opencv_num_threads = 0
 mp_start_method = 'fork'
 auto_scale_lr = dict(enable=False, base_batch_size=16)
+
+
 
 
 
